@@ -42,7 +42,6 @@ const employeeQuestions = (employeeRole) => {
             }
         ])
         .then((generalQuestions) => {
-            console.log(generalQuestions)
             if (employeeRole == "Manager") {
                 managerQuestions(generalQuestions);
             }
@@ -61,11 +60,40 @@ const employeeQuestions = (employeeRole) => {
                 .prompt({
                     type: 'number',
                     name: 'officeNumber',
-                    message: `What is the manager's office number?`                    
+                    message: `What is this manager's office number?`                    
                  })
                  .then(({officeNumber}) => {
                     let manager = new Manager(generalAnswers.name, generalAnswers.id, generalAnswers.email, officeNumber);
-                    console.log(manager);
+                    employeeArr.push(manager);
+                    initializeProfiles();
+                 })
+        }
+
+        const engineerQuestions = (generalAnswers) => {
+            return inquirer
+                .prompt({
+                    type: 'input',
+                    name: 'github',
+                    message: `What is this engineer's GitHub username?`                    
+                 })
+                 .then(({github}) => {
+                    let engineer = new Engineer(generalAnswers.name, generalAnswers.id, generalAnswers.email, github);
+                    employeeArr.push(engineer);
+                    initializeProfiles();
+                 })
+        }
+
+        const internQuestions = (generalAnswers) => {
+            return inquirer
+                .prompt({
+                    type: 'input',
+                    name: 'school',
+                    message: `What school is this intern attending?`                    
+                 })
+                 .then(({school}) => {
+                    let intern = new Intern(generalAnswers.name, generalAnswers.id, generalAnswers.email, school);
+                    employeeArr.push(intern);
+                    initializeProfiles();
                  })
         }
 
