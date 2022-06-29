@@ -4,6 +4,7 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const fs = require("fs");
+const generateHTML = require("./src/generateHTML.js")
 let employeeArr = [];
 
 const initializeProfiles = () => {
@@ -18,9 +19,10 @@ const initializeProfiles = () => {
             if (response.employeeRole != 'No more profiles to add') {
                 employeeQuestions(response.employeeRole)
             }
-            // else {
-                //fs.writefileSync("./dist/profiles.html", need to create function that calls starter html passing in employee array)
-            // }
+            else {
+                fs.writeFileSync("./dist/profiles.html", generateHTML(employeeArr))
+                console.log(employeeArr)
+            }
         })
 }
 
